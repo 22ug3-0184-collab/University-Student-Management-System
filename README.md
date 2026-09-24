@@ -34,7 +34,6 @@ Each student record contains:
 | M. K. S. S. Ananda           | 22UG3-0184 | Project Coordinator   | Integration, GitHub documentation and testing |
 | M.P.J.S.S.Jayasooriya        | 22UG3-0051 | Software Developer 01 | Student Records and Linked List               |
 | S. D. D. A. SIYAMBALAPITIYA  | 22UG3-0270 | Software Developer 02 | Stack, Queue, BST and Hashing                 |
-| Member 4                     | XXXXX      | Software Developer 03 | Graph and BFS/DFS                             |
 | T. Dhammika Thero            | 22UG3-0570 | Software Developer 03 | Graph and BFS/DFS                             |
 
 ## Technologies
