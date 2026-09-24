@@ -42,3 +42,9 @@ Each student record contains:
 - Git
 - GitHub
 - Visual Studio Code
+
+## Member 2 Contribution
+
+**M.P.J.S.S.Jayasooriya (22UG3-0051)** is responsible for the shared
+`Student` model, the manually implemented singly linked list, student CRUD
+operations, input validation, and the linked-list test harness.
