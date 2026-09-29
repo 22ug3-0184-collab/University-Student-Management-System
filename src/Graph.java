@@ -1,112 +1,165 @@
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
+import java.util.Set;
 
 public class Graph {
-    private Map<String, List<String>> adjacencyList;
+    private final Map<String, Set<String>> adjacencyList = new LinkedHashMap<>();
 
-    public Graph() {
-        this.adjacencyList = new HashMap<>();
-    }
-
-    // 1. Add Location
     public boolean addLocation(String location) {
-        if (location == null || location.trim().isEmpty()) return false;
-        String loc = location.trim();
-        if (adjacencyList.containsKey(loc)) return false;
-        adjacencyList.put(loc, new ArrayList<>());
-        return true;
-    }
+        String key = normalize(location);
 
-    // 2. Remove Location
-    public boolean removeLocation(String location) {
-        if (location == null || !adjacencyList.containsKey(location.trim())) return false;
-        String loc = location.trim();
-        adjacencyList.remove(loc);
-        for (List<String> neighbors : adjacencyList.values()) {
-            neighbors.remove(loc);
+        if (key == null || adjacencyList.containsKey(key)) {
+            return false;
         }
+
+        adjacencyList.put(key, new LinkedHashSet<>());
         return true;
     }
 
-    // 3. Add Connection
-    public boolean addConnection(String loc1, String loc2) {
-        if (loc1 == null || loc2 == null) return false;
-        String l1 = loc1.trim();
-        String l2 = loc2.trim();
-        if (!adjacencyList.containsKey(l1) || !adjacencyList.containsKey(l2)) return false;
-        if (adjacencyList.get(l1).contains(l2)) return false;
-        
-        adjacencyList.get(l1).add(l2);
-        adjacencyList.get(l2).add(l1);
+    public boolean removeLocation(String location) {
+        String key = normalize(location);
+
+        if (key == null || !adjacencyList.containsKey(key)) {
+            return false;
+        }
+
+        adjacencyList.remove(key);
+
+        for (Set<String> neighbors : adjacencyList.values()) {
+            neighbors.remove(key);
+        }
+
         return true;
     }
 
-    // 4. Remove Connection
-    public boolean removeConnection(String loc1, String loc2) {
-        if (loc1 == null || loc2 == null) return false;
-        String l1 = loc1.trim();
-        String l2 = loc2.trim();
-        if (!adjacencyList.containsKey(l1) || !adjacencyList.containsKey(l2)) return false;
-        
-        adjacencyList.get(l1).remove(l2);
-        adjacencyList.get(l2).remove(l1);
+    public boolean addConnection(String first, String second) {
+        String a = normalize(first);
+        String b = normalize(second);
+
+        if (a == null || b == null || a.equalsIgnoreCase(b)
+                || !adjacencyList.containsKey(a)
+                || !adjacencyList.containsKey(b)) {
+            return false;
+        }
+
+        adjacencyList.get(a).add(b);
+        adjacencyList.get(b).add(a);
         return true;
     }
 
-    // 5. Display Connections
-    public void displayConnections() {
+    public boolean removeConnection(String first, String second) {
+        String a = normalize(first);
+        String b = normalize(second);
+
+        if (a == null || b == null
+                || !adjacencyList.containsKey(a)
+                || !adjacencyList.containsKey(b)) {
+            return false;
+        }
+
+        boolean removed = adjacencyList.get(a).remove(b);
+        adjacencyList.get(b).remove(a);
+        return removed;
+    }
+
+    public boolean containsLocation(String location) {
+        String key = normalize(location);
+        return key != null && adjacencyList.containsKey(key);
+    }
+
+    public void displayLocations() {
         if (adjacencyList.isEmpty()) {
-            System.out.println("No locations available.");
+            System.out.println("No campus locations found.");
             return;
         }
-        for (Map.Entry<String, List<String>> entry : adjacencyList.entrySet()) {
-            System.out.println(entry.getKey() + " -> " + String.join(", ", entry.getValue()));
+
+        System.out.println("Campus Locations:");
+        for (String location : adjacencyList.keySet()) {
+            System.out.println("- " + location);
         }
     }
 
-    // 6. BFS Traversal
-    public void bfsTraversal(String startLocation) {
-        if (startLocation == null || !adjacencyList.containsKey(startLocation.trim())) return;
-        String start = startLocation.trim();
-        
+    public void displayConnections() {
+        if (adjacencyList.isEmpty()) {
+            System.out.println("Graph is empty.");
+            return;
+        }
+
+        System.out.println("Campus Connections:");
+        for (Map.Entry<String, Set<String>> entry : adjacencyList.entrySet()) {
+            System.out.print(entry.getKey() + " -> ");
+
+            if (entry.getValue().isEmpty()) {
+                System.out.println("No connections");
+            } else {
+                System.out.println(String.join(", ", entry.getValue()));
+            }
+        }
+    }
+
+    public List<String> bfs(String start) {
+        String source = normalize(start);
+        List<String> order = new ArrayList<>();
+
+        if (source == null || !adjacencyList.containsKey(source)) {
+            return order;
+        }
+
         Set<String> visited = new HashSet<>();
-        Queue<String> queue = new LinkedList<>();
-        
-        visited.add(start);
-        queue.add(start);
-        
-        List<String> result = new ArrayList<>();
+        Queue<String> queue = new ArrayDeque<>();
+
+        visited.add(source);
+        queue.offer(source);
+
         while (!queue.isEmpty()) {
             String current = queue.poll();
-            result.add(current);
+            order.add(current);
+
             for (String neighbor : adjacencyList.get(current)) {
-                if (!visited.contains(neighbor)) {
-                    visited.add(neighbor);
-                    queue.add(neighbor);
+                if (visited.add(neighbor)) {
+                    queue.offer(neighbor);
                 }
             }
         }
-        System.out.println("BFS Traversal: " + String.join(" -> ", result));
+
+        return order;
     }
 
-    // 7. DFS Traversal
-    public void dfsTraversal(String startLocation) {
-        if (startLocation == null || !adjacencyList.containsKey(startLocation.trim())) return;
-        String start = startLocation.trim();
-        
+    public List<String> dfs(String start) {
+        String source = normalize(start);
+        List<String> order = new ArrayList<>();
+
+        if (source == null || !adjacencyList.containsKey(source)) {
+            return order;
+        }
+
         Set<String> visited = new HashSet<>();
-        List<String> result = new ArrayList<>();
-        
-        dfsHelper(start, visited, result);
-        System.out.println("DFS Traversal: " + String.join(" -> ", result));
+        dfsRecursive(source, visited, order);
+        return order;
     }
 
-    private void dfsHelper(String current, Set<String> visited, List<String> result) {
+    private void dfsRecursive(String current, Set<String> visited, List<String> order) {
         visited.add(current);
-        result.add(current);
+        order.add(current);
+
         for (String neighbor : adjacencyList.get(current)) {
             if (!visited.contains(neighbor)) {
-                dfsHelper(neighbor, visited, result);
+                dfsRecursive(neighbor, visited, order);
             }
         }
+    }
+
+    private String normalize(String value) {
+        if (value == null || value.trim().isEmpty()) {
+            return null;
+        }
+        return value.trim();
     }
 }
