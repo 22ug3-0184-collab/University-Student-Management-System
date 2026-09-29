@@ -94,3 +94,38 @@ java Main
 6. Hash Table supports insert/search/delete using Student ID.
 7. Graph manages campus locations and connections.
 8. BFS and DFS demonstrate graph traversal.
+
+## Project Timeline & Task Allocation
+
+## Project Coordinator & Integration - M K S S Ananda
+
+GitHub repository, add 3 members, branches, .gitignore, project folders. 
+Create Main.java, design complete menu, coordinate integration.
+Integrate Member 2, 3 and 4 code.
+Coordinate full-system testing; assign and track bugs.
+Complete README, check commits/branches, prepare demo video.
+Final verification, Drive/permissions if required, LMS submission.
+
+## Member 2 — Student Records + Linked List - M.P.J.S.S.Jayasooriya
+
+24 September: Create Student.java, StudentNode.java and StudentLinkedList.java. Implement add, display, search,
+update and delete.
+25 September: Complete Linked List operations and validation for empty fields, duplicate IDs and invalid marks.
+26 September: Give completed code to Member 1 and integrate/test with Main.java.
+27 September: Test multiple students, duplicate IDs, non-existing IDs, invalid marks, update and delete operations; fix
+bugs.
+28 September: Prepare video section explaining the Student Records and Linked List implementation.
+29 September: Remain available for final debugging.
+
+## Member 3 — Stack + Queue + BST + Hashing - S. D. D. A. SIYAMBALAPITIYA 
+24 September — Stack: Create Action.java and ActionStack.java. Implement push, pop, peek, display and isEmpty.
+25 September — Queue: Create ServiceRequest.java and ServiceQueue.java. Implement enqueue, dequeue, peek,
+display and isEmpty. Then begin BST.
+25–26 September — BST: Create BSTNode.java and StudentBST.java. Use Student ID as the key and implement
+insert, search, delete and in-order traversal.
+26 September — Hashing: Create StudentHashTable.java and implement insert, search and delete using Student ID
+as the key. Integrate all four components.
+27 September: Fix integration problems and ensure Linked List, BST and Hash Table use the same Student.java
+class.
+28 September: Prepare video section demonstrating Stack, Queue, BST and Hashing.
+29 September: Remain available for final debugging.
