@@ -94,19 +94,3 @@ java Main
 6. Hash Table supports insert/search/delete using Student ID.
 7. Graph manages campus locations and connections.
 8. BFS and DFS demonstrate graph traversal.
-
-## Validation
-
-The system checks:
-
-**M.P.J.S.S.Jayasooriya (22UG3-0051)** is responsible for the shared
-`Student` model, the manually implemented singly linked list, student CRUD
-operations, input validation, and the linked-list test harness.
-- Empty student fields
-- Duplicate student IDs
-- Marks outside 0–100
-- Invalid numeric input
-- Missing student IDs for service requests
-- Duplicate/missing campus locations
-- Invalid campus connections
-- Empty stack/queue/structures
