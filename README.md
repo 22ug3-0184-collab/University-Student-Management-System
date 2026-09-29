@@ -129,3 +129,12 @@ as the key. Integrate all four components.
 class.
 28 September: Prepare video section demonstrating Stack, Queue, BST and Hashing.
 29 September: Remain available for final debugging.
+
+## Member 4 — Graph + BFS/DFS - T. Dhammika Thero
+24 September: Design campus locations and Graph.java using an adjacency list.
+25 September: Implement addLocation, removeLocation, displayLocations, addConnection, removeConnection and
+displayConnections, with validation.
+26 September: Implement BFS and/or DFS traversal and integrate Graph.java with Main.java.
+27 September: Test locations, connections, duplicate entries, missing locations and BFS/DFS; fix bugs.
+28 September: Prepare video section explaining the graph, adjacency list and traversal.
+29 September: Remain available for final debugging
